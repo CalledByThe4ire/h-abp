@@ -1,23 +1,46 @@
-##
-[![Hexlet Ltd. logo](https://raw.githubusercontent.com/Hexlet/hexletguides.github.io/master/images/hexlet_logo128.png)](https://ru.hexlet.io/pages/about?utm_source=github&utm_medium=link&utm_campaign=nodejs-package)
+В `unix` существует такая утилита как `awk`, она позволяет проводить различные манипуляции с входным потоком (текстом) и получать на выходе новый текст. Например иногда, бывает нужно взять вывод одной программы и оставить от него только первый столбец. Пример:
 
-This repository is created and maintained by the team and the community of Hexlet, an educational project. [Read more about Hexlet (in Russian)](https://ru.hexlet.io/pages/about?utm_source=github&utm_medium=link&utm_campaign=nodejs-package).
-##
+```
+ls -la
 
-# nodejs-package
+drwxr-xr-x  14 mokevnin  staff  476 Dec  9 20:31 .
+drwxr-xr-x   3 mokevnin  staff  102 Dec  9 20:29 ..
+-rw-r--r--   1 mokevnin  staff    0 Dec  9 20:31 .bash_history
+-rw-r--r--   1 mokevnin  staff  117 Dec  9 20:29 .eslintrc.yml
 
-[![Code Climate](https://codeclimate.com/github/hexlet-boilerplates/javascript-package/badges/gpa.svg)](https://codeclimate.com/github/hexlet-boilerplates/javascript-package)
-[![Issue Count](https://codeclimate.com/github/hexlet-boilerplates/javascript-package/badges/issue_count.svg)](https://codeclimate.com/github/hexlet-boilerplates/javascript-package)
-[![Build Status](https://travis-ci.org/hexlet-boilerplates/nodejs-package.svg?branch=master)](https://travis-ci.org/hexlet-boilerplates/nodejs-package)
-
-## Setup
-
-```sh
-$ make install
 ```
 
-## Run tests
-
-```sh
-$ make test
 ```
+ls -la | awk '{print $1}'
+
+drwxr-xr-x
+drwxr-xr-x
+-rw-r--r--
+-rw-r--r--
+
+```
+
+### solution.js
+
+Реализуйте и экспортируйте функцию по умолчанию, которая принимает на вход текст и возвращает массив состоящий из первых слов каждой строки текста. Пустые строчки должны игнорироваться.
+
+-   Строки разделяются переводом строки
+-   В любом месте строки может быть сколько угодно пробелов
+-   Текст должен перебираться посимвольно (мы пишем лексер)
+
+```
+const text = '  what who   \nhellomy\n hello who are you\n';
+const result = solution(text);
+// [
+//   'what',
+//   'hellomy',
+//   'hello',
+// ];
+
+```
+
+Решение должно быть автоматным
+
+### Подсказки
+
+-   Управляющие символы, такие как `\t`, `\n` называются словом символы, потому что это одиночные символы. А запись `\n` всего лишь представление.
