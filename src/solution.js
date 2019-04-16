@@ -1,58 +1,71 @@
-/* eslint-disable arrow-body-style, no-console, default-case */
-// BEGIN (write your solution here)
-
-export default (str) => {
-  const isSymbolSpecial = symbol => /\s/.test(symbol);
-  const symbols = Array.from(str);
-  let word = '';
-  let state = isSymbolSpecial(symbols[0]) ? 'search' : 'concat'; // search, concat, skip, fill
-
-  return symbols.reduce((acc, symbol, index, array) => {
-    const nextSymbol = array[index + 1];
-
-    switch (state) {
-      case 'search':
-        if (isSymbolSpecial(nextSymbol)) {
-          if (word.length === 0) {
-            return acc;
-          }
-          if (nextSymbol === ' ') {
-            state = 'skip';
-            return acc;
-          }
-        }
-        state = 'concat';
-        break;
-
-      case 'concat':
-        word += symbol;
-        if (isSymbolSpecial(nextSymbol)) {
-          if (nextSymbol === ' ') {
-            state = 'skip';
-            return acc;
-          }
-          state = 'fill';
-          return acc;
-        }
-        break;
-
-      case 'skip':
-        if (nextSymbol !== '\n') {
-          if (array.length - 1 === index) {
-            return acc.concat(word);
-          }
-          return acc;
-        }
-        state = 'fill';
-        break;
-
-      case 'fill':
-        acc.push(word);
-        word = '';
-        state = isSymbolSpecial(nextSymbol) ? 'search' : 'concat';
-        break;
+// BEGIN
+export default (text) => {
+  const result = [];
+  // before, inside, after
+  let state = 'before';
+  let word = [];
+  Array.from(text).forEach((symbol) => {
+    if (symbol === '\n' && word.length > 0) {
+      result.push(word.join(''));
+      word = [];
+      state = 'before';
     }
-    return acc;
-  }, []);
+    switch (state) {
+      case 'before':
+        if (symbol !== ' ' && symbol !== '\n') {
+          state = 'inside';
+          word.push(symbol);
+        }
+        break;
+      case 'inside':
+        if (symbol !== ' ') {
+          word.push(symbol);
+        } else {
+          state = 'after';
+        }
+        break;
+      case 'after':
+        break;
+      default:
+        throw new Error(`Unexpected state '${state}'`);
+    }
+  });
+
+  if (word.length > 0) {
+    result.push(word.join(''));
+  }
+
+  return result;
 };
+
+// export default (text) => {
+//   let result = [];
+//
+//   for (const line of text.split('\n')) {
+//     let startIndex = 0;
+//
+//     let currentSymbol = line[startIndex];
+//     while (currentSymbol === ' ') {
+//       startIndex++;
+//       currentSymbol = line[startIndex];
+//     }
+//
+//     let endIndex = startIndex;
+//     while (currentSymbol !== ' ' && endIndex !== line.length) {
+//       endIndex++;
+//       currentSymbol = line[endIndex];
+//     }
+//
+//     const word = [];
+//     for (let i = startIndex; i < endIndex; i++) {
+//       word.push(line[i]);
+//     }
+//
+//     if (word.length > 0) {
+//       result.push(word.join(''));
+//     }
+//   }
+//
+//   return result;
+// };
 // END
