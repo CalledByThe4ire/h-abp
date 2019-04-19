@@ -27,7 +27,8 @@
     "url": "https://github.com/hexlet-boilerplates/nodejs-package/issues"
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "bail": true
   },
   "homepage": "https://github.com/hexlet-boilerplates/nodejs-package#readme",
   "dependencies": {

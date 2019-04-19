@@ -1,23 +1,28 @@
-##
-[![Hexlet Ltd. logo](https://raw.githubusercontent.com/Hexlet/hexletguides.github.io/master/images/hexlet_logo128.png)](https://ru.hexlet.io/pages/about?utm_source=github&utm_medium=link&utm_campaign=nodejs-package)
+Реализуйте логику работы часов из теории.
 
-This repository is created and maintained by the team and the community of Hexlet, an educational project. [Read more about Hexlet (in Russian)](https://ru.hexlet.io/pages/about?utm_source=github&utm_medium=link&utm_campaign=nodejs-package).
-##
+В режиме настройки будильника (alarm), часы и минуты изменяются независимо и никак друг на друга не влияют (как и в большинстве реальных будильников). То есть если происходит увеличение минут с 59 до 60 (сброс на 00), то цифра с часами остается неизменной.
 
-# nodejs-package
+Интерфейсными методами часов являются:
 
-[![Code Climate](https://codeclimate.com/github/hexlet-boilerplates/javascript-package/badges/gpa.svg)](https://codeclimate.com/github/hexlet-boilerplates/javascript-package)
-[![Issue Count](https://codeclimate.com/github/hexlet-boilerplates/javascript-package/badges/issue_count.svg)](https://codeclimate.com/github/hexlet-boilerplates/javascript-package)
-[![Build Status](https://travis-ci.org/hexlet-boilerplates/nodejs-package.svg?branch=master)](https://travis-ci.org/hexlet-boilerplates/nodejs-package)
+-   `clickMode()` - нажатие на кнопку `Mode`
+-   `longClickMode()` - долгое нажатие на кнопку `Mode`
+-   `clickH()` - нажатие на кнопку `H`
+-   `clickM()` - нажатие на кнопку `M`
+-   `tick()` - при вызове, увеличивает время на одну минуту. Если новое время совпало со временем на будильнике, то часы переключаются в режим срабатывания будильника (bell).
+-   `isAlarmOn()` - показывает включен ли режим будильника
+-   `isAlarmTime()` - возвращает `true`, если время на часах совпадает со временем на будильнике
+-   `minutes()` - возвращает минуты, установленные на часах
+-   `hours()` - возвращает часы, установленные на часах
+-   `alarmMinutes()` - возвращает минуты, установленные на будильнике
+-   `alarmHours()` - возвращает часы, установленные на будильнике
+-   `getCurrentMode()` - возвращает текущий режим (alarm | clock | bell)
 
-## Setup
+Основной спецификацией к данной задачe нужно считать тесты.
 
-```sh
-$ make install
-```
+### AlarmClock.js
 
-## Run tests
+Реализуйте интерфейсные методы и логику работы часов.
 
-```sh
-$ make test
-```
+### State.js, AlarmState.js, BellState.js, ClockState.js
+
+Реализуйте иерархию состояний, в корне которой находится `State`.
