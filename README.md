@@ -1,23 +1,31 @@
-##
-[![Hexlet Ltd. logo](https://raw.githubusercontent.com/Hexlet/hexletguides.github.io/master/images/hexlet_logo128.png)](https://ru.hexlet.io/pages/about?utm_source=github&utm_medium=link&utm_campaign=nodejs-package)
+### Order.js
 
-This repository is created and maintained by the team and the community of Hexlet, an educational project. [Read more about Hexlet (in Russian)](https://ru.hexlet.io/pages/about?utm_source=github&utm_medium=link&utm_campaign=nodejs-package).
-##
+Реализуйте и экспортируйте по умолчанию тип `Order`. Сделайте так, чтобы на каждое изменение состояния в массив `history`добавлялась запись об этом в виде `{ state: <name>, createdAt: new Date() }`. Используйте для этого событие `onEnterState`библиотеки `javascript-state-machine`.
 
-# nodejs-package
+*(Эта библиотека неявно проставляет состояние 'none' и делает переход в начальный стейт (в нашем случае -'init'). Нас эти состояния не интересуют, поэтому в 'history' их нужно избегать.)*
 
-[![Code Climate](https://codeclimate.com/github/hexlet-boilerplates/javascript-package/badges/gpa.svg)](https://codeclimate.com/github/hexlet-boilerplates/javascript-package)
-[![Issue Count](https://codeclimate.com/github/hexlet-boilerplates/javascript-package/badges/issue_count.svg)](https://codeclimate.com/github/hexlet-boilerplates/javascript-package)
-[![Build Status](https://travis-ci.org/hexlet-boilerplates/nodejs-package.svg?branch=master)](https://travis-ci.org/hexlet-boilerplates/nodejs-package)
+Реализуйте конечный автомат процесса заказа товаров в магазине:
 
-## Setup
+Начальное состояние: `init`. Событие `accept` переводит автомат в `pending` (только из `init`). Событие `ship` переводит в состояние `shipped` (только из `pending`). Событие `complete` переводит в состояние `completed` (только из `shipped`). Событие `cancel` переводит в состояние `canceled` (только из состояний `init` и `pending`) Событие `refund` переводит в состояние `refunded` (только из состояний `shipped` и `completed`)
 
-```sh
-$ make install
+Немного пояснения. Отменить заказ можно только до тех пор пока он не был отправлен клиенту. Если заказ уже был отправлен или доставлен, то клиент может сделать возврат. В реальной жизни на эти переходы будут происходить дополнительные действия связанные с обработкой платежа, отправки почты и тому подобное.
+
+### solution.js
+
+Реализуйте функцию `tryCancel` которая выполняет отмену заказа только в том случае, если это возможно сделать.
+
+```
+import cancel from './solution';
+
+const order = new Order([]);
+order.is('canceled'); // false
+tryCancel(order);
+order.is('canceled'); // true
+
 ```
 
-## Run tests
+*Это задание подразумевает то, что хорошо изучите документацию библиотеки. Все как в реальной жизни ;)*
 
-```sh
-$ make test
-```
+### Подсказки
+
+-   [State Machine Factory](https://github.com/jakesgordon/javascript-state-machine/blob/master/docs/state-machine-factory.md)
