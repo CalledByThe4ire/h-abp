@@ -4,10 +4,8 @@ export const init = items => new Order(items);
 
 // BEGIN (write your solution here)
 export const tryCancel = (order) => {
-  if (order.is('init') || order.is('pending')) {
+  if (order.can('cancel')) {
     order.cancel();
-    return order.state;
   }
-  return order.state;
 };
 // END

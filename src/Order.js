@@ -22,9 +22,9 @@ StateMachine.factory(Order, {
   ],
   methods: {
     // BEGIN (write your solution here)
-    onEnterState({ transition }) {
-      if (transition !== 'none' && transition !== 'init') {
-        this.history.push({ state: this.state, createdAt: new Date() });
+    onEnterState({ from, to }) {
+      if (from !== 'none') {
+        this.history.push({ state: to, createdAt: new Date() });
       }
     },
     // END
